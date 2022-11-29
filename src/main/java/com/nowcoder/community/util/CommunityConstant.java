@@ -1,5 +1,8 @@
 package com.nowcoder.community.util;
 
+import javax.servlet.http.HttpSession;
+import java.util.Map;
+
 public interface CommunityConstant {
     /**
      * 激活成功
@@ -25,5 +28,6 @@ public interface CommunityConstant {
      * "记住我" 凭证超时时间
      */
     int REMEMBER_EXPIRED_SECONDS = 3600 * 24 * 7;
+
 
 }
