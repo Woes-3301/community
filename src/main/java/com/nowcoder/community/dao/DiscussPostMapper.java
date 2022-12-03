@@ -16,5 +16,6 @@ public interface DiscussPostMapper {
 //    该参数注解，用于给参数取别名
 //    若只有一个参数，且在<if> 中使用，则必须加别名，否则会报错
 
+    int insertDiscussPost(DiscussPost discussPost);
 
 }
