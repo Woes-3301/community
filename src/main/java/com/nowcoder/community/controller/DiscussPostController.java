@@ -36,12 +36,12 @@ public class DiscussPostController implements CommunityConstant {
     @Autowired
     private CommentService commentService;
 
-    @RequestMapping(path = "/add",method = RequestMethod.POST)
+    @RequestMapping(path = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public String addDiscussPost(String title,String content){
+    public String addDiscussPost(String title, String content) {
         User user = hostHolder.getUser();
-        if(user == null){
-            return CommunityUtil.getJSONString(403, "未登录");
+        if (user == null) {
+            return CommunityUtil.getJSONString(403, "你还没有登录!");
         }
 
         DiscussPost post = new DiscussPost();
@@ -51,19 +51,19 @@ public class DiscussPostController implements CommunityConstant {
         post.setCreateTime(new Date());
         discussPostService.addDiscussPost(post);
 
-        // 报错 留到后续处理
-        return CommunityUtil.getJSONString(0,"发布成功");
+        // 报错的情况,将来统一处理.
+        return CommunityUtil.getJSONString(0, "发布成功!");
     }
 
-    @RequestMapping(path = "/detail/{discussPostId}",method = RequestMethod.GET)
-    public String getDiscussPost(@PathVariable("discussPostId") int discussPostId, Model model, Page page){
+    @RequestMapping(path = "/detail/{discussPostId}", method = RequestMethod.GET)
+    public String getDiscussPost(@PathVariable("discussPostId") int discussPostId, Model model, Page page) {
         //查询帖子
         DiscussPost post = discussPostService.findDiscussPostById(discussPostId);
-        model.addAttribute("post",post);
+        model.addAttribute("post", post);
         //查到的是用户id，要得到用户名
         //可以在mapper里sql做关联查询，mybatis是支持的
         User user = userService.findUserById(post.getUserId());
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
 
         // 评论分页信息
         page.setLimit(5);
